@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WowoClean Enterprise</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .error { color: red; font-size: 0.8em; margin-bottom: 10px; display: block; }
+        .success { color: green; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .card { border: 1px solid #ccc; padding: 20px; max-width: 300px; margin-bottom: 20px; }
+        .mb-3 { margin-bottom: 15px; }
+        .header-app { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .btn-logout { background-color: #dc3545; color: white; border: none; padding: 8px 12px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>WowoClean</h2>
+
+    <div id="loginSection" class="card">
+        <h3>Login Sistem</h3>
+        <div class="mb-3">
+            <label>Email:</label><br>
+            <input type="email" id="loginEmail" placeholder="admin@wowoclean.com">
+        </div>
+        <div class="mb-3">
+            <label>Password:</label><br>
+            <input type="password" id="loginPassword" placeholder="password123">
+        </div>
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="appSection" style="display: none;">
+        <div class="header-app">
+            <span id="userGreeting" style="font-weight: bold; font-size: 1.2em;"></span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+        </div>
+
+        <hr>
+        
+        <h3>Input Kontainer</h3>
+        <form id="containerForm">
+            <div>
+                <label>Container ID:</label><br>
+                <input type="text" id="container_id" placeholder="Cth: GD12345">
+                <span class="error" id="err_container_id"></span>
+            </div>
+            
+            <div>
+                <label>Waste Type:</label><br>
+                <input type="text" id="waste_type" placeholder="Cth: Chemical, Glass, Metal">
+                <span class="error" id="err_waste_type"></span>
+            </div>
+            
+            <div>
+                <label>Weight (Kg):</label><br>
+                <input type="number" id="weight_kg" placeholder="10 - 5000">
+                <span class="error" id="err_weight_kg"></span>
+            </div>
+            
+            <button type="submit">Simpan Data</button>
+        </form>
+
+        <hr>
+
+        <div style="position: fixed; bottom: 10px; right: 10px; background: white; border: 1px solid black; padding: 5px;">
+            <strong>Total Muatan: <span id="totalWeight">0</span> Kg</strong>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipe</th>
+                    <th>Berat (Kg)</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="dataTable">
+            </tbody>
+        </table>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

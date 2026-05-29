@@ -1,0 +1,140 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "WowoClean API Documentation",
+        "description": "Dokumentasi Enterprise REST API WowoClean (UAP)",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "API Server Lokal"
+        }
+    ],
+    "paths": {
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login untuk mendapatkan JWT Token",
+                "operationId": "da2ca4d7a5cdec77b8b45a20373535cb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "admin@wowoclean.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil Login, mengembalikan Token"
+                    },
+                    "401": {
+                        "description": "Kredensial Salah (Unauthorized)"
+                    }
+                }
+            }
+        },
+        "/api/v1/gateway/containers": {
+            "get": {
+                "tags": [
+                    "Containers"
+                ],
+                "summary": "Ambil Data Kontainer via Gateway",
+                "operationId": "c8a2aaa7f663413a114d18c5e173d11f",
+                "responses": {
+                    "200": {
+                        "description": "Sukses"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Containers"
+                ],
+                "summary": "Tambah Kontainer Baru via Gateway",
+                "operationId": "b3f02229a3d7b316446d1fa45d9c9604",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "container_id": {
+                                        "type": "string",
+                                        "example": "GD12345"
+                                    },
+                                    "waste_type": {
+                                        "type": "string",
+                                        "example": "Plastic"
+                                    },
+                                    "weight_kg": {
+                                        "type": "number",
+                                        "example": 500
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Kontainer berhasil disimpan"
+                    },
+                    "403": {
+                        "description": "Forbidden (Bukan Admin)"
+                    },
+                    "422": {
+                        "description": "Validasi Gagal"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        },
+        {
+            "name": "Containers",
+            "description": "Containers"
+        }
+    ]
+}
